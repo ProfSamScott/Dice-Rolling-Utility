@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Make Project
-      run: gcc main.c -o dice 
+      run: gcc main.c parser.c -o dice 
     - name: Release Project
       uses: actions/upload-artifact@v4
       with:
