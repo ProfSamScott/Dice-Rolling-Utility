@@ -1,3 +1,6 @@
+/* TODO: +, -, *, / (round down), clear, total, -b (brief flag), 3d6 without + or - performs a clear operation.
+ *
+ */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
