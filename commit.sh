@@ -13,6 +13,7 @@ do
 done
 
 echo $message
+echo $tag
 
 git add *.c *.h *.sh *.txt makefile
 if [$message = ""]
@@ -23,6 +24,7 @@ else
 fi
 git push origin
 git status
+
 if [$tag != ""]
 then
     git push origin "$tag"
