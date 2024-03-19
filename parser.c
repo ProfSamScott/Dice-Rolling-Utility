@@ -5,13 +5,15 @@
 #include "parser.h"
 
 // s is a string with no leading/traling whitespace
-diceset makeSet(char *s) {
+diceset makeSet(char *s, char **remaining) {
+//    printf("ENTERING PARSER: %s\n",s);
     diceset result;
     result.sides = -1;
     int buffer = 0;
 
     int state = STATE_NUM;
-    for(int i=0; i<strlen(s); i++) {
+    int i;
+    for(i=0; i<strlen(s); i++) {
         if (state == STATE_NUM) {
             if (s[i] >= '0' && s[i] <= '9') {
                 buffer = buffer * 10 + s[i]-'0';
@@ -23,20 +25,20 @@ diceset makeSet(char *s) {
                     result.num = buffer;
                 buffer = 0;
             } else {
-                return result;
+                break;
             }
         } else if (state == STATE_D) {
             if (s[i] >= '0' && s[i] <= '9') {
                 buffer = buffer * 10 + s[i] - '0';
                 state = STATE_SIDES;
             } else {
-                return result;
+                break;
             }
         } else if (state == STATE_SIDES) {
             if (s[i] >= '0' && s[i] <= '9') {
                 buffer = buffer * 10 + s[i] - '0';
             } else {
-                return result;
+                break;
             }
         }
     }
@@ -46,6 +48,8 @@ diceset makeSet(char *s) {
         result.num = buffer;
         result.sides = 0; // constant
     }
+    *remaining=s+i;
+//    printf("LEAVING PARSER: %s\n",*remaining);
     return result;
 }
 

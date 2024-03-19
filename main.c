@@ -1,5 +1,4 @@
-/* TODO: +, -, *, / (round down), clear, total, -b (brief flag), 3d6 without + or - performs a clear operation.
- *
+/* -b (brief flag)
  */
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +7,7 @@
 #include <time.h>
 #include "main.h"
 #include "parser.h"
+#include "diceio.h"
 
 flags init_flags(int argc, char **argv) {
     flags f;
@@ -34,19 +34,7 @@ int main(int argc, char **argv) {
 
     srand(time(NULL));
 
-    char input[100];
-    puts("Enter some dice strings!");
-    do { 
-        int result = scanf("%100s",input);
-        if (result == EOF || input[0] == 'q' || input[0] == 'Q')
-            break;
-        diceset d = makeSet(input);
-        if (d.sides >= 0 && d.num > 0) {
-            printf("%d\n", rollset(d, f));
-        } else {
-            printf("ERROR! %dd%d\n",d.num,d.sides);
-        }
-    } while (true);
+    dialog(f);
 
     if (f.verbose)
         puts("Goodbye!");
