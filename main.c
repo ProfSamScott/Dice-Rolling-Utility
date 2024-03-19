@@ -12,7 +12,7 @@ flags init_flags() {
     return f;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
 	printf("Dice Parser v0.1.0\n");
 
     flags f = init_flags();
@@ -32,15 +32,15 @@ int main(int argc, char *argv[]) {
     puts("Enter some dice strings!");
     do { 
         int result = scanf("%100s",input);
-        if (result == EOF)
+        if (result == EOF || input[0] == 'q' || input[0] == 'Q')
             break;
         diceset d = makeSet(input);
-        if (d.sides > 0 && d.num > 0) {
+        if (d.sides >= 0 && d.num > 0) {
             printf("%d\n", rollset(d, f));
         } else {
             puts("ERROR!");
         }
-    } while (strlen(input) > 0 && input[0] != 'q' && input[0] != 'Q');
+    } while (true);
 
     puts("Goodbye!");
     return EXIT_SUCCESS;

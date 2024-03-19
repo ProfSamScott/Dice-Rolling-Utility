@@ -42,11 +42,17 @@ diceset makeSet(char *s) {
     }
     if (state == STATE_SIDES && buffer > 0) {
         result.sides = buffer;
+    } else if (state == STATE_NUM && buffer > 0) {
+        result.num = buffer;
+        result.sides = 0; // constant
     }
     return result;
 }
 
 int rollset(diceset d, flags f) {
+    if (d.sides == 0) {
+        return d.num;
+    }
     int sum = 0;
     for (int i=0; i<d.num; i++) {
         int roll = (int)((double)rand()/RAND_MAX*d.sides)+1; 
