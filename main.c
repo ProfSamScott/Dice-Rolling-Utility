@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
         if (d.sides >= 0 && d.num > 0) {
             printf("%d\n", rollset(d, f));
         } else {
-            puts("ERROR!");
+            printf("ERROR! %dd%d\n",d.num,d.sides);
         }
     } while (true);
 

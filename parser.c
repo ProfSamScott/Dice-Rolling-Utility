@@ -16,11 +16,11 @@ diceset makeSet(char *s) {
             if (s[i] >= '0' && s[i] <= '9') {
                 buffer = buffer * 10 + s[i]-'0';
             } else if (s[i] == 'd' || s[i] == 'D') {
-                if (buffer <= 0) {
-                    return result;
-                }
                 state = STATE_D;
-                result.num = buffer;
+                if (buffer <= 0)
+                    result.num = 1;
+                else 
+                    result.num = buffer;
                 buffer = 0;
             } else {
                 return result;
@@ -50,6 +50,10 @@ diceset makeSet(char *s) {
 }
 
 int rollset(diceset d, flags f) {
+    if (f.verbose) {
+        if (d.sides > 0)
+            printf("%dd%d: ",d.num, d.sides);
+    }
     if (d.sides == 0) {
         return d.num;
     }
