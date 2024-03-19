@@ -56,9 +56,11 @@ diceset makeSet(char *s, char **remaining) {
 int rollset(diceset d, flags f) {
     if (f.verbose) {
         if (d.sides > 0)
-            printf("%dd%d: ",d.num, d.sides);
+            printf("%dd%d [",d.num, d.sides);
     }
     if (d.sides == 0) {
+        if (f.verbose)
+            printf("%d\n",d.num);
         return d.num;
     }
     int sum = 0;
@@ -67,11 +69,11 @@ int rollset(diceset d, flags f) {
         sum += roll;
         if (f.verbose) {
             if (i > 0) 
-                printf("+ ");
-            printf("%d ", roll);
+                printf(" ");
+            printf("%d", roll);
         }
     }
     if (f.verbose)
-        printf("= ");
+        printf("] %d\n", sum);
     return sum;
 }
