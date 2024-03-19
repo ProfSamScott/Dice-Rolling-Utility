@@ -13,6 +13,11 @@ done
 echo $message
 
 git add *.c *.h *.sh makefile
-git commit -m "$message"
+if [$message = ""]
+then
+    git commit
+else
+    git commit -m "$message"
+fi
 git push origin
 git status
