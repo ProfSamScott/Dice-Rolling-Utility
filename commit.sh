@@ -12,7 +12,7 @@ done
 
 echo $message
 
-git add *.c *.h *.sh makefile
+git add *.c *.h *.sh *.txt makefile
 if [$message = ""]
 then
     git commit
