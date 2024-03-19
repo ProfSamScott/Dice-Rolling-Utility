@@ -25,5 +25,5 @@ git push origin
 git status
 if [$tag != ""]
 then
-    git push $tag
+    git push origin "$tag"
 fi
