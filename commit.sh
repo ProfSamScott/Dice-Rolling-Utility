@@ -1,4 +1,4 @@
 #!/bin/bash
-git add *.c *.h *.sh
+git add *.c *.h *.sh makefile
 git commit
 git push origin

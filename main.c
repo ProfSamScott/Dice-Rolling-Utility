@@ -9,25 +9,28 @@
 #include "main.h"
 #include "parser.h"
 
-flags init_flags() {
+flags init_flags(int argc, char **argv) {
     flags f;
     f.verbose = false;
-    return f;
-}
-
-int main(int argc, char **argv) {
-	printf("Dice Parser v0.1.0\n");
-
-    flags f = init_flags();
 
     for (int i=1; i<argc; i++) {
         if (strcmp(argv[i],"-v") == 0) {
             f.verbose = true;
         } else {
             printf("Bad Flag: %s.\n",argv[i]);
-            return EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
     }
+
+    return f;
+}
+
+int main(int argc, char **argv) {
+
+    flags f = init_flags(argc, argv);
+
+    if (f.verbose)
+        printf("Dice Parser v0.1.0\n");
 
     srand(time(NULL));
 
@@ -45,6 +48,8 @@ int main(int argc, char **argv) {
         }
     } while (true);
 
-    puts("Goodbye!");
+    if (f.verbose)
+        puts("Goodbye!");
+
     return EXIT_SUCCESS;
 }
