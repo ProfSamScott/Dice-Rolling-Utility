@@ -6,15 +6,19 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
-    - name: Make Project
-      run: gcc main.c parser.c diceio.c -o dice 
+    - name: Make Dice Parser
+      run: make 
+    - name: Make Histogram Tool
+      run: make histogram
+    - name: Make Unit Testing Tool
+      run: make unittests
+    - name: Run Unit Tests
+      run: ./unittests >> test_results.txt
     - name: Release Project
       uses: actions/upload-artifact@v4
       with:
-        name: Dice Parser
-        path: ./dice
+        name: Dice Parser Deliverables
+        path: ./dice ./histogram ./test_results.txt
