@@ -22,11 +22,11 @@ int main(void) {
 
     // testing the parser
     int tc = 1;
-    success = success && test_makeSet(tc++, "3d6", 3, 6, "");
-    success = success && test_makeSet(tc++, "d6", 1, 6, "");
-    success = success && test_makeSet(tc++, "3d6-5", 3, 6, "-5");
-    success = success && test_makeSet(tc++, "100*2", 100, 0, "*2");
-    success = success && test_makeSet(tc++, "fdjskl", -1, -1, "fdjskl");
+    success = test_makeSet(tc++, "3d6", 3, 6, "") && success;
+    success = test_makeSet(tc++, "d6", 1, 6, "") && success;
+    success = test_makeSet(tc++, "3d6-5", 3, 6, "-") && success; // intentionally fails
+    success = test_makeSet(tc++, "100*2", 100, 0, "*2") && success;
+    success = test_makeSet(tc++, "fdjskl", 1, -1, "fxxdjskl") && success; //fixed to intentionally fail
 
     // final output
     if (success) {
