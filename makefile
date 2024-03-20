@@ -4,5 +4,5 @@ dice: main.c main.h parser.c parser.h diceio.c diceio.h
 histogram: histogram.c
 	gcc -o histogram histogram.c
 
-test: test.c
-	gcc -o test test.c
+unittests: unittests.c parser.c parser.h diceio.c diceio.h
+	gcc -o unittests parser.c diceio.c unittests.c

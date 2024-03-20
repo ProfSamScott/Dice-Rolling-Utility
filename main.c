@@ -1,4 +1,5 @@
-/* -b (brief flag)
+/* gotta fix the spacing for repeated commands
+ * -c command
  */
 #include <stdio.h>
 #include <string.h>

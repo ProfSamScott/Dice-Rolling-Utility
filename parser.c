@@ -8,6 +8,7 @@
 diceset makeSet(char *s, char **remaining) {
 //    printf("ENTERING PARSER: %s\n",s);
     diceset result;
+    result.num = -1;
     result.sides = -1;
     int buffer = 0;
 
