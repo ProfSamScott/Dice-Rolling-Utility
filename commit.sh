@@ -12,9 +12,6 @@ do
     esac
 done
 
-echo $message
-echo $tag
-
 git add *.c *.h *.sh *.txt makefile
 if [ "$message" = "" ]
 then
