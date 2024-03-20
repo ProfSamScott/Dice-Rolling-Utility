@@ -1,5 +1,4 @@
 #!/bin/bash
-# TODO - get a tag as a parameter and push it as well
 
 message=""
 tag=""
