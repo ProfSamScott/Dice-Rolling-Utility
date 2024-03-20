@@ -3,31 +3,34 @@ name: Continuous Integration - Dice Parser
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - name: Make Dice Parser
       run: make 
-    - name: Make Histogram Tool
-      run: make histogram
-    - name: Make Unit Testing Tool
-      run: make unittests
-    - name: Run Unit Tests
-      run: ./unittests >> test_results.txt
     - name: Upload Dice Parser
       uses: actions/upload-artifact@v4
       with:
         name: Dice Parser Deliverable
         path: ./dice
+        
+    - name: Make Histogram Tool
+      run: make histogram
     - name: Upload Histogram Tool
       uses: actions/upload-artifact@v4
       with:
         name: Histogram Tool Deliverable
         path: ./histogram
+        
+    - name: Make Unit Testing Tool
+      run: make unittests
+    - name: Run Unit Tests
+      run: ./unittests >> test_results.txt  
     - name: Upload Test Results
+      if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
         name: Test Results Deliverable
