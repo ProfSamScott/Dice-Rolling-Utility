@@ -25,7 +25,7 @@ fi
 git push origin
 git status
 
-if [$tag != ""]
+if ["$tag" != ""]
 then
     git tag $tag
     git push origin $tag
