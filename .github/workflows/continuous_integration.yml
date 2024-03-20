@@ -17,8 +17,18 @@ jobs:
       run: make unittests
     - name: Run Unit Tests
       run: ./unittests >> test_results.txt
-    - name: Release Project
+    - name: Upload Dice Parser
       uses: actions/upload-artifact@v4
       with:
-        name: Dice Parser Deliverables
-        path: ./dice ./histogram ./test_results.txt
+        name: Dice Parser Deliverable
+        path: ./dice
+    - name: Upload Histogram Tool
+      uses: actions/upload-artifact@v4
+      with:
+        name: Histogram Tool Deliverable
+        path: ./histogram
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results Deliverable
+        path: ./test_results.txt
