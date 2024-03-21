@@ -6,6 +6,14 @@
 #include "parser.h"
 #include "diceio.h"
 
+bool test_remove_whitespace(int tc, char *s, char *e) {
+    remove_whitespace(s);
+    if (strcmp(s, e) != 0) {
+        printf("TC %d FAILED.\n   Result: %s\n Expected: %s\n", tc, s, e);
+        return false;
+    }
+    return true;
+}
 bool test_makeSet(int tc, char *s, int num, int sides, char *expected_remaining) {
     diceset d;
     char *remaining;
@@ -29,6 +37,12 @@ int main(void) {
     success = test_makeSet(tc++, "100*2", 100, 0, "*2") && success;
     success = test_makeSet(tc++, "fdjskl", -1, -1, "fdjskl") && success; //fixed to intentionally fail
     //success = test_makeSet(tc++, "fdjskl", 1, -1, "fxxdjskl") && success; //fixed to intentionally fail
+
+    char input[1000];
+    strcpy(input,"  3d6   -2d4\t\t+5  \n");
+    success = test_remove_whitespace(tc++, input, "3d6-2d4+5") && success;
+    strcpy(input, "");
+    success = test_remove_whitespace(tc++, input, "") && success;
 
     // final output
     if (success) {

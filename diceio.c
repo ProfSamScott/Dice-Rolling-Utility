@@ -9,12 +9,12 @@
 #include "parser.h"
 #include "diceio.h"
 
+#define BUFFER_SIZE 10000
+
 int get_number(char* s, char **pos) {
-//    printf("get_number %s\n",s);
     *pos = strchr(s, ':');
     if (*pos == NULL) {
         *pos = s;
-//        printf("leave get_number 1\n");
         return 1;
     }
     int num = 0;
@@ -22,20 +22,34 @@ int get_number(char* s, char **pos) {
         if (*s >= '0' && *s <= '9') {
             num = num * 10 + (*s - '0');
         } else {
-//            printf("ERROR near %s\n",s);
             return 0;
         }
     }
     *pos = *pos + 1;
     while (**pos == ' ' || **pos == '\t')
         *pos = *pos + 1;
-//    printf("leave get_number %d\n",num);
     return num;
+}
+
+int remove_whitespace(char *s) {
+// TODO - 3d5 3d4
+//    puts("remove_ws");
+    int j = 0;
+    char prev = 'x';
+    for (int i=0; i<strlen(s); i++) {
+//        printf("%d %d %c %c\n",i,j,s[i],s[j]);
+        if (s[i] != '\n' && s[i] != ' ' && s[i] != '\t') {
+            s[j] = s[i];
+            j++;
+        } 
+    }
+    s[j] = '\0';
+    return 0;
 }
 
 void dialog(flags f) {
 
-    char raw[100000];
+    char raw[BUFFER_SIZE];
     char *input, *rewind;
     int total = 0;
     int state = ADD;
@@ -45,9 +59,12 @@ void dialog(flags f) {
         puts("Enter some dice strings!");
 
     while (true) { 
-        int result = scanf("%s",raw);
-        if (result == EOF || raw[0] == 'q' || raw[0] == 'Q')
+        if (f.verbose)
+            printf(">>> ");
+        char *result = fgets(raw, BUFFER_SIZE, stdin);
+        if (result == NULL || raw[0] == 'q' || raw[0] == 'Q')
             return;
+        remove_whitespace(raw);
         int n = get_number(raw, &rewind);
         for (int i = 0; i < n; i++) {
             input = rewind;
@@ -58,22 +75,22 @@ void dialog(flags f) {
                     input++;
                 } else if (input[0] == '+') {
                     if (f.verbose) 
-                        printf("+");
+                        printf("+ ");
                     state = ADD;
                     input++;
                 } else if (input[0] == '-') {
                     if (f.verbose)
-                        printf("-");
+                        printf("- ");
                     state = SUB;
                     input++;
                 } else if (input[0] == '*') {
                     if (f.verbose)
-                        printf("*");
+                        printf("* ");
                     state = MUL;
                     input++;
                 } else if (input[0] == '/') {
                     if (f.verbose)
-                        printf("/");
+                        printf("/ ");
                     state = DIV;
                     input++;
                 } else if (input[0] == '=') {
