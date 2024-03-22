@@ -10,7 +10,8 @@
 #include "parser.h"
 #include "diceio.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 
     srand(time(NULL));
     flags f = init_flags(argc, argv);
@@ -18,10 +19,13 @@ int main(int argc, char **argv) {
     if (f.verbose)
         printf("Dice Parser v0.1.0\n");
 
-    if (f.command != NULL) {
+    if (f.command != NULL)
+    {
         int state = ADD;
         process_command_line(f.command, f, 0, &state);
-    } else {
+    }
+    else
+    {
         dialog(f);
     }
 
