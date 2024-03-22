@@ -90,6 +90,6 @@ puts("Usage: histogram [OPTION]...");
     puts("Computes a histogram from integers read from stdin.");
 
     puts("Command line options:");
-    puts("  -h, --help,              Get help.");
-    puts("  -v,                      Verbose output.");
+    puts("  -h, --help,   Get help.");
+    puts("  -v,           Verbose output.");
 }
