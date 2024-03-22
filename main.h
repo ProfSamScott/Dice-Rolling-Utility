@@ -2,4 +2,5 @@
 
 typedef struct {
     bool verbose;
+    char *command;
 } flags;

@@ -17,27 +17,42 @@ int get_number(char* s, char **pos) {
         *pos = s;
         return 1;
     }
+    int state = 1;
     int num = 0;
     for (; s < *pos; s++) {
-        if (*s >= '0' && *s <= '9') {
-            num = num * 10 + (*s - '0');
-        } else {
-            return 0;
+        if (state == 1) {
+            if (*s >= '0' && *s <= '9') {
+                num = num * 10 + (*s - '0');
+                state = 2;
+            } else if (*s == ' ' || *s == '\t'){
+            } else{
+                return 0;
+            }
+        } else if (state == 2) {
+            if (*s >= '0' && *s <= '9') {
+                num = num * 10 + (*s - '0');
+                state = 2;
+            } else if (*s == ' ' || *s == '\t'){
+                state = 3;
+            } else {
+                return 0;
+            }
+        } else if (state == 3) {
+            if (*s != ' ' && *s != '\t'){
+                return 0;
+            }
         }
     }
     *pos = *pos + 1;
-    while (**pos == ' ' || **pos == '\t')
-        *pos = *pos + 1;
+    // while (**pos == ' ' || **pos == '\t')
+    //     *pos = *pos + 1;
     return num;
 }
 
 int remove_whitespace(char *s) {
-// TODO - 3d5 3d4
-//    puts("remove_ws");
+    // deprecated
     int j = 0;
-    char prev = 'x';
     for (int i=0; i<strlen(s); i++) {
-//        printf("%d %d %c %c\n",i,j,s[i],s[j]);
         if (s[i] != '\n' && s[i] != ' ' && s[i] != '\t') {
             s[j] = s[i];
             j++;
@@ -50,10 +65,8 @@ int remove_whitespace(char *s) {
 void dialog(flags f) {
 
     char raw[BUFFER_SIZE];
-    char *input, *rewind;
     int total = 0;
     int state = ADD;
-    bool error = false;
 
     if (f.verbose)
         puts("Enter some dice strings!");
@@ -64,71 +77,80 @@ void dialog(flags f) {
         char *result = fgets(raw, BUFFER_SIZE, stdin);
         if (result == NULL || raw[0] == 'q' || raw[0] == 'Q')
             return;
-        remove_whitespace(raw);
-        int n = get_number(raw, &rewind);
-        for (int i = 0; i < n; i++) {
-            input = rewind;
-            while (input != NULL && input[0] != '\0') {
-                if (input[0] == 'c' || input[0] == 'C') {
-                    total = 0;
-                    state = CLR;
-                    input++;
-                } else if (input[0] == '+') {
-                    if (f.verbose) 
-                        printf("+ ");
-                    state = ADD;
-                    input++;
-                } else if (input[0] == '-') {
-                    if (f.verbose)
-                        printf("- ");
-                    state = SUB;
-                    input++;
-                } else if (input[0] == '*') {
-                    if (f.verbose)
-                        printf("* ");
-                    state = MUL;
-                    input++;
-                } else if (input[0] == '/') {
-                    if (f.verbose)
-                        printf("/ ");
-                    state = DIV;
-                    input++;
-                } else if (input[0] == '=') {
-                    if (f.verbose)
-                        printf("==============\n");
-                    printf("%d\n",total);
-                    if (f.verbose)
-                        printf("\n");
-                    state = CLR;
-                    input++;
-                } else {
-                    char *left;
-                    diceset d = makeSet(input, &left);
-                    input = left;
-                    //printf("DEBUG: %s\n", left);
-                    if (d.sides >= 0 && d.num > 0) {
-                        error = false;
-                        int result = rollset(d, f);
-                        if (state == ADD) {
-                            total += result;
-                        } else if (state == SUB) {
-                            total -= result;
-                        } else if (state == MUL) {
-                            total *= result;
-                        } else if (state == DIV) {
-                            total /= result;
-                        } else if (state == CLR) {
-                            total = result;
-                        }
-                        state = CLR;
-                    } else {
-                        if (!error)
-                            printf("\n{ERROR near '%s'}\n",input);
-                        input++;
-                        error = true;
-                    }
-                } // else if chain
-            } // while
-        } // for
+        total = process_command_line(raw, f, total, &state);
     } //while (true)
+}
+
+int process_command_line(char *raw, flags f, int total, int *state) {
+    char *input, *rewind;
+    bool error = false;
+    remove_whitespace(raw);
+    int n = get_number(raw, &rewind);
+    for (int i = 0; i < n; i++) {
+        input = rewind;
+        while (input != NULL && input[0] != '\0') {
+            if (input[0] == 'c' || input[0] == 'C') {
+                total = 0;
+                *state = CLR;
+                input++;
+            } else if (input[0] == '+') {
+                if (f.verbose) 
+                    printf("+ ");
+                *state = ADD;
+                input++;
+            } else if (input[0] == '-') {
+                if (f.verbose)
+                    printf("- ");
+                *state = SUB;
+                input++;
+            } else if (input[0] == '*') {
+                if (f.verbose)
+                    printf("* ");
+                *state = MUL;
+                input++;
+            } else if (input[0] == '/') {
+                if (f.verbose)
+                    printf("/ ");
+                *state = DIV;
+                input++;
+            } else if (input[0] == '=') {
+                if (f.verbose)
+                    printf("==============\n");
+                printf("%d\n",total);
+                if (f.verbose)
+                    printf("\n");
+                *state = CLR;
+                input++;
+            } else if (input[0] == ' ' || input[0] == '\t') {
+                // ignore whitespace
+            } else {
+                char *left;
+                diceset d = makeSet(input, &left);
+                input = left;
+                //printf("DEBUG: %s\n", left);
+                if (d.sides >= 0 && d.num > 0) {
+                    error = false;
+                    int result = rollset(d, f);
+                    if (*state == ADD) {
+                        total += result;
+                    } else if (*state == SUB) {
+                        total -= result;
+                    } else if (*state == MUL) {
+                        total *= result;
+                    } else if (*state == DIV) {
+                        total /= result;
+                    } else if (*state == CLR) {
+                        total = result;
+                    }
+                    *state = CLR;
+                } else {
+                    if (!error)
+                        printf("\n{ERROR near '%s'}\n",input);
+                    input++;
+                    error = true;
+                }
+            } // else if chain
+        } // while
+    } // for
+    return total;
 }
