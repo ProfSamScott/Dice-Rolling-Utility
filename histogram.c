@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+# TODO - flag to suppress the total (-b flag?)
 int main(void) {
     int size = 10;
     long num;

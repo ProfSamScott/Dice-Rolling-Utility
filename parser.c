@@ -1,8 +1,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "main.h"
+#include "utilities.h"
 #include "parser.h"
+
+#define STATE_NUM 0
+#define STATE_D 1
+#define STATE_SIDES 2
 
 // s is a string with no leading/traling whitespace
 diceset makeSet(char *s, char **remaining) {

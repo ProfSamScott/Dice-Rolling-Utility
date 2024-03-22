@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "main.h"
+#include "utilities.h"
 #include "parser.h"
 #include "diceio.h"
 
@@ -47,19 +47,6 @@ int get_number(char* s, char **pos) {
     // while (**pos == ' ' || **pos == '\t')
     //     *pos = *pos + 1;
     return num;
-}
-
-int remove_whitespace(char *s) {
-    // deprecated
-    int j = 0;
-    for (int i=0; i<strlen(s); i++) {
-        if (s[i] != '\n' && s[i] != ' ' && s[i] != '\t') {
-            s[j] = s[i];
-            j++;
-        } 
-    }
-    s[j] = '\0';
-    return 0;
 }
 
 void dialog(flags f) {

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "main.h"
+#include "utilities.h"
 #include "parser.h"
 #include "diceio.h"
 
