@@ -82,6 +82,8 @@ int main(int argc, char **argv)
     if (verbose)
         printf("---------------------\n     total:%10ld\n", sum);
     free(histo);
+
+    return EXIT_SUCCESS;
 }
 
 void show_help(void) {
