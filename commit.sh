@@ -2,7 +2,7 @@
 
 message=""
 tag=""
-
+ 
 while getopts m:t: flag; do
     case "${flag}" in
     m) message=${OPTARG} ;;
