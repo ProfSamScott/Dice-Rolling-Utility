@@ -8,7 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
+    - name: Create bin folder
+      run: mkdir bin
+      
     - name: Make Dice Parser
       run: make 
         
@@ -21,7 +24,7 @@ jobs:
     - name: Upload Executables
       uses: actions/upload-artifact@v4
       with:
-        name: Expectation Tool Executable
+        name: Executables
         path: ./bin
         
   test:   
@@ -29,13 +32,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Create bin folder
+      run: mkdir bin
+      
     - name: Make Unit Testing Tool
       run: make bin/unittests
+      
     - name: Run Unit Tests
       run: ./bin/unittests >> test_results.txt  
+      
     - name: Upload Test Results
       if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
         name: Test Results
-        path: ./bin/test_results.txt
+        path: ./test_results.txt
