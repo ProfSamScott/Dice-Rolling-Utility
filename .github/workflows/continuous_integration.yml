@@ -8,7 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
+    - name: Create bin folder
+      run: mkdir bin
+      
     - name: Make Dice Parser
       run: make 
         
