@@ -11,27 +11,18 @@ jobs:
     
     - name: Make Dice Parser
       run: make 
-    - name: Upload Dice Parser
-      uses: actions/upload-artifact@v4
-      with:
-        name: Dice Parser Executable
-        path: ./dice
         
     - name: Make Histogram Tool
-      run: make histogram
-    - name: Upload Histogram Tool
-      uses: actions/upload-artifact@v4
-      with:
-        name: Histogram Tool Executable
-        path: ./histogram
+      run: make bin/histogram
         
     - name: Make Expectation Tool
-      run: make expectation
-    - name: Upload Expectation Tool
+      run: make bin/expectation
+        
+    - name: Upload Executables
       uses: actions/upload-artifact@v4
       with:
         name: Expectation Tool Executable
-        path: ./expectation
+        path: ./bin
         
   test:   
     runs-on: ubuntu-latest
@@ -39,12 +30,12 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Make Unit Testing Tool
-      run: make unittests
+      run: make bin/unittests
     - name: Run Unit Tests
-      run: ./unittests >> test_results.txt  
+      run: ./bin/unittests >> test_results.txt  
     - name: Upload Test Results
       if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
         name: Test Results
-        path: ./test_results.txt
+        path: ./bin/test_results.txt
