@@ -14,7 +14,7 @@ jobs:
     - name: Upload Dice Parser
       uses: actions/upload-artifact@v4
       with:
-        name: Dice Parser Deliverable
+        name: Dice Parser Executable
         path: ./dice
         
     - name: Make Histogram Tool
@@ -22,14 +22,15 @@ jobs:
     - name: Upload Histogram Tool
       uses: actions/upload-artifact@v4
       with:
-        name: Histogram Tool Deliverable
+        name: Histogram Tool Executable
         path: ./histogram
+        
     - name: Make Expectation Tool
       run: make expectation
     - name: Upload Expectation Tool
       uses: actions/upload-artifact@v4
       with:
-        name: Expectation Tool Deliverable
+        name: Expectation Tool Executable
         path: ./expectation
         
   test:   
@@ -45,5 +46,5 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
-        name: Test Results Deliverable
+        name: Test Results
         path: ./test_results.txt
