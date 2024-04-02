@@ -1,3 +1,6 @@
+/*
+ * TODO - add comments
+ */
 #define ADD 0
 #define SUB 1
 #define MUL 2
