@@ -1,3 +1,7 @@
+/* Some basic utilities
+ *
+ * Sam Scott, McMaster University, 2024
+ */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> 
@@ -5,8 +9,11 @@
 
 void show_help();
 
-int remove_whitespace(char *s) {
-    // deprecated
+/* remove_whitespace()
+ * 
+ * Removes all whitespace characters from a given string.
+ */
+void remove_whitespace(char *s) {
     int j = 0;
     for (int i=0; i<strlen(s); i++) {
         if (s[i] != '\n' && s[i] != ' ' && s[i] != '\t') {
@@ -15,9 +22,16 @@ int remove_whitespace(char *s) {
         } 
     }
     s[j] = '\0';
-    return 0;
 }
 
+/* init_flags()
+ * 
+ * Reads the command line options passed to main and returns a
+ * flags object that corresponds to the options found. Exits
+ * on a bad command line argument.
+ * 
+ * This is not quite to LINUX standards (e.g. -c"3d6" won't work)
+ */
 flags init_flags(int argc, char **argv) {
     flags f;
     f.verbose = false;
@@ -45,6 +59,8 @@ flags init_flags(int argc, char **argv) {
     return f;
 }
 
+/* show_help()
+ */
 void show_help() {
     puts("Usage: dice [OPTION]...");
     puts("");

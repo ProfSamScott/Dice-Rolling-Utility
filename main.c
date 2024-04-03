@@ -1,5 +1,6 @@
-/* gotta fix the spacing for repeated commands
- * -c command
+/* Command Line Utility for rolling dice
+ *
+ * Sam Scott, McMaster University, 2024
  */
 #include <stdio.h>
 #include <string.h>
@@ -10,9 +11,14 @@
 #include "parser.h"
 #include "diceio.h"
 
+/* main()
+ * 
+ * processes command line arguments, initializes random number 
+ * seed, and calls diceio utilities to dialog via stdin or 
+ * process a single command (-c option)
+ */
 int main(int argc, char **argv)
 {
-
     srand(time(NULL));
     flags f = init_flags(argc, argv);
 
@@ -21,8 +27,7 @@ int main(int argc, char **argv)
 
     if (f.command != NULL)
     {
-        int state = ADD;
-        process_command_line(f.command, f, 0, &state);
+        process_one_command(f.command, f);
     }
     else
     {
