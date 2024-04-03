@@ -16,6 +16,14 @@
  * processes command line arguments, initializes random number 
  * seed, and calls diceio utilities to dialog via stdin or 
  * process a single command (-c option)
+ * 
+ * When used in verbose mode (-v) it can be a command line tool
+ * for someone to roll dice. When not in verbose mode, it can
+ * pipe results to histogram.
+ * 
+ * e.g. dice -c "1000: 3d6 - 2 + d4 * 2d6 =" | histogram
+ * 
+ * Run with --help to see usage info
  */
 int main(int argc, char **argv)
 {

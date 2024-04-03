@@ -1,3 +1,11 @@
+/* A simple utility to read a list of int values from stdin and
+ * produce a histogram. Good example of calloc and realloc in action.
+ *
+ * Can be used in verbose mode for viewing output. Otherwise, suitable
+ * for piping to expectation.
+ *
+ * Sam Scott, McMaster University, 2024
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -5,8 +13,13 @@
 
 void show_help(void);
 
+/* Reads the command line flags, then reads integers from
+ * stdin and writes a histogram to stdout. Exits with an
+ * error code if something goes wrong.
+ */
 int main(int argc, char **argv)
 {
+    // read command line flags
     bool verbose = false;
     for (int i = 1; i < argc; i++)
     {
@@ -26,6 +39,7 @@ int main(int argc, char **argv)
         }
     }
 
+    // compute the histogram (initial size 10, grows as necessary)
     int size = 10;
     long num;
     long *histo = calloc(size, sizeof(long));
@@ -79,6 +93,8 @@ int main(int argc, char **argv)
                 printf("%d %ld\n", i, histo[i]);
         }
     }
+
+    // output result
     if (verbose)
         printf("---------------------\n     total:%10ld\n", sum);
     free(histo);
@@ -86,8 +102,9 @@ int main(int argc, char **argv)
     return EXIT_SUCCESS;
 }
 
-void show_help(void) {
-puts("Usage: histogram [OPTION]...");
+void show_help(void)
+{
+    puts("Usage: histogram [OPTION]...");
     puts("");
     puts("Computes a histogram from integers read from stdin.");
 
