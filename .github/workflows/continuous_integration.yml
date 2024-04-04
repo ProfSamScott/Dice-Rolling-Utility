@@ -13,7 +13,7 @@ jobs:
       run: mkdir bin
       
     - name: Make Dice Parser
-      run: make 
+      run: make bin/dice
         
     - name: Make Histogram Tool
       run: make bin/histogram

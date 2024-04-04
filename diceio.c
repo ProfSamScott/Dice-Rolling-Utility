@@ -175,7 +175,7 @@ int process_command_line(char *raw, flags f, int total, int *state)
                 else
                 { // flag an error if bad dice set
                     if (!error)
-                        printf("\n{ERROR near '%s'}\n", input);
+                        fprintf(stderr,"{ERROR near '%s'}\n", input);
                     input++;
                     error = true;
                 }

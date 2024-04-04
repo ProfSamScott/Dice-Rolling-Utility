@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     long *histo = calloc(size, sizeof(long));
     if (histo == NULL)
     {
-        puts("Memory error. Aborting.");
+        fprintf(stderr,"Memory error. Aborting.\n");
         exit(EXIT_FAILURE);
     }
     while (true)
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
             else
             {
                 free(histo);
-                puts("Negative Number! Aborting");
+                fprintf(stderr,"Negative Number! Aborting\n");
                 exit(EXIT_FAILURE);
             }
         }
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
             if (newhisto == NULL)
             {
                 free(histo);
-                puts("Memory error. Aborting.");
+                fprintf(stderr,"Memory error. Aborting.\n");
                 exit(EXIT_FAILURE);
             }
             histo = newhisto;

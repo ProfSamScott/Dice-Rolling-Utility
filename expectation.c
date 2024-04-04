@@ -32,7 +32,7 @@ int main(int argc, char **argv)
         }
         else
         {
-            printf("Bad Option: '%s'. See 'expectation --help'.\n", argv[i]);
+            fprintf(stderr,"Bad Option: '%s'. See 'expectation --help'.\n", argv[i]);
             exit(EXIT_FAILURE);
         }
     }

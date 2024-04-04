@@ -43,7 +43,7 @@ flags init_flags(int argc, char **argv) {
         } else if (strcmp(argv[i],"-c") == 0) {
             i = i + 1;
             if (i == argc) {
-                printf("Incorrect Usage: '-c'. See 'dice --help'.\n");
+                fprintf(stderr,"Incorrect Usage: '-c'. See 'dice --help'.\n");
                 exit(EXIT_FAILURE);
             }
             f.command = argv[i];
@@ -51,7 +51,7 @@ flags init_flags(int argc, char **argv) {
             show_help();
             exit(EXIT_SUCCESS);
         } else {
-            printf("Bad Option: '%s'. See 'dice --help'.\n",argv[i]);
+            fprintf(stderr,"Bad Option: '%s'. See 'dice --help'.\n",argv[i]);
             exit(EXIT_FAILURE);
         }
     }
