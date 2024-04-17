@@ -18,3 +18,4 @@ The project illustrates some of the following Git/GitHub concepts:
 - Single branch development
 - Tags with semantic versioning
 - Workflow for building and testing software
+ 
