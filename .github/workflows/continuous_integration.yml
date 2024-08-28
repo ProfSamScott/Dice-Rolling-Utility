@@ -39,7 +39,7 @@ jobs:
       run: make bin/unittests
       
     - name: Run Unit Tests
-      run: ./bin/unittests >> test_results.txt  
+      run: ./bin/unittests > test_results.txt  
       
     - name: Upload Test Results
       if: ${{ always() }}

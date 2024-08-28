@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 
 void show_help(void)
 {
-    puts("Usage: histogram [OPTION]...");
+    puts("Usage: expectation [OPTION]...");
     puts("");
     puts("Computes expected value from a histogram read from stdin.");
 
