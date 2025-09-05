@@ -1,5 +1,5 @@
 /* Command Line Utility for rolling dice 
- *
+ * 
  * Sam Scott, McMaster University, 2024 
  * new comment
  */
