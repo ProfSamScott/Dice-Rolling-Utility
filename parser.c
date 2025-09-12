@@ -5,6 +5,7 @@
 #include "parser.h"
 
 // state variables for makeSet
+// here's a change
 #define STATE_NUM 0 
 #define STATE_D 1
 #define STATE_SIDES 2
