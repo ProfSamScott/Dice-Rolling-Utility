@@ -1,6 +1,6 @@
 /* Contains the basic I/O functions for the dice parser
  * The dialog function kicks things off.
- *
+ * fdsfds
  * Sam Scott, McMaster University, 2024
  */
 #include <stdio.h>
