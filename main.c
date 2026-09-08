@@ -1,7 +1,6 @@
 /* Command Line Utility for rolling dice 
  *  
  * Sam Scott, McMaster University, 2024 
- * new comment
  */
 #include <stdio.h>
 #include <string.h>
