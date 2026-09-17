@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Create bin folder
       run: mkdir bin
@@ -22,7 +22,7 @@ jobs:
       run: make bin/expectation
         
     - name: Upload Executables
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: Executables
         path: ./bin
@@ -30,7 +30,7 @@ jobs:
   test:   
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Create bin folder
       run: mkdir bin
@@ -43,7 +43,7 @@ jobs:
       
     - name: Upload Test Results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: Test Results
         path: ./test_results.txt
